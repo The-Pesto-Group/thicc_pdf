@@ -8,15 +8,11 @@ Gem::Specification.new do |spec|
   spec.version       = ThiccPdf::VERSION
   spec.authors       = ['Miles Z. Sterrett', 'David Jones']
   spec.email         = ['miles.sterrett@gmail.com', 'unixmonkey1@gmail.com']
-  spec.summary       = 'PDF generator (from HTML) gem for Ruby on Rails'
+  spec.summary       = 'PDF generator (from HTML) for Ruby on Rails'
   spec.homepage      = 'https://github.com/The-Pesto-Group/thicc_pdf'
   spec.license       = 'MIT'
   spec.date          = Time.now.strftime('%Y-%m-%d')
-  spec.description   = <<DESC.gsub(/^\s+/, '')
-    Thicc PDF uses the shell utility wkhtmltopdf to serve a PDF file to a user from HTML.
-    In other words, rather than dealing with a PDF generation DSL of some sort,
-    you simply write an HTML view as you would normally, and let Thicc take care of the hard stuff.
-DESC
+  spec.description   = 'A fork of Wicked PDF. Uses WeasyPrint instead of wkhtmltopdf.'
   spec.metadata =    {
     'changelog_uri' => 'https://github.com/The-Pesto-Group/thicc_pdf/blob/master/CHANGELOG.md'
   }

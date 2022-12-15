@@ -1,10 +1,6 @@
-# Thicc PDF [![Gem Version](https://badge.fury.io/rb/thicc_pdf.svg)](http://badge.fury.io/rb/thicc_pdf) [![Build Status](https://github.com/The-Pesto-Group/thicc_pdf/actions/workflows/ci.yml/badge.svg)](https://github.com/The-Pesto-Group/thicc_pdf/actions/workflows/ci.yml) [![Code Climate](https://codeclimate.com/github/The-Pesto-Group/thicc_pdf/badges/gpa.svg)](https://codeclimate.com/github/The-Pesto-Group/thicc_pdf) [![Open Source Helpers](https://www.codetriage.com/The-Pesto-Group/thicc_pdf/badges/users.svg)](https://www.codetriage.com/The-Pesto-Group/thicc_pdf)
+# ThiccPDF
 
-## A PDF generation plugin for Ruby on Rails
-
-Thicc PDF uses the shell utility [wkhtmltopdf](http://wkhtmltopdf.org) to serve a PDF file to a user from HTML.  In other words, rather than dealing with a PDF generation DSL of some sort, you simply write an HTML view as you would normally, then let Thicc PDF take care of the hard stuff.
-
-_Thicc PDF has been verified to work on Ruby versions 2.2 through 2.6; Rails 4 through 6.1_
+ThiccPDF is a fork of [Wicked PDF](https://github.com/mileszs/wicked_pdf).
 
 ### Installation
 
