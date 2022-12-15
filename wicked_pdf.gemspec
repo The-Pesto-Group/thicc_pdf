@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Miles Z. Sterrett', 'David Jones']
   spec.email         = ['miles.sterrett@gmail.com', 'unixmonkey1@gmail.com']
   spec.summary       = 'PDF generator (from HTML) gem for Ruby on Rails'
-  spec.homepage      = 'https://github.com/mileszs/thicc_pdf'
+  spec.homepage      = 'https://github.com/The-Pesto-Group/thicc_pdf'
   spec.license       = 'MIT'
   spec.date          = Time.now.strftime('%Y-%m-%d')
   spec.description   = <<DESC.gsub(/^\s+/, '')
@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
     you simply write an HTML view as you would normally, and let Thicc take care of the hard stuff.
 DESC
   spec.metadata =    {
-    'changelog_uri' => 'https://github.com/mileszs/thicc_pdf/blob/master/CHANGELOG.md'
+    'changelog_uri' => 'https://github.com/The-Pesto-Group/thicc_pdf/blob/master/CHANGELOG.md'
   }
 
   spec.required_ruby_version = Gem::Requirement.new('>= 2.2')

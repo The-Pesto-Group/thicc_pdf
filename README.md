@@ -1,4 +1,4 @@
-# Thicc PDF [![Gem Version](https://badge.fury.io/rb/thicc_pdf.svg)](http://badge.fury.io/rb/thicc_pdf) [![Build Status](https://github.com/mileszs/thicc_pdf/actions/workflows/ci.yml/badge.svg)](https://github.com/mileszs/thicc_pdf/actions/workflows/ci.yml) [![Code Climate](https://codeclimate.com/github/mileszs/thicc_pdf/badges/gpa.svg)](https://codeclimate.com/github/mileszs/thicc_pdf) [![Open Source Helpers](https://www.codetriage.com/mileszs/thicc_pdf/badges/users.svg)](https://www.codetriage.com/mileszs/thicc_pdf)
+# Thicc PDF [![Gem Version](https://badge.fury.io/rb/thicc_pdf.svg)](http://badge.fury.io/rb/thicc_pdf) [![Build Status](https://github.com/The-Pesto-Group/thicc_pdf/actions/workflows/ci.yml/badge.svg)](https://github.com/The-Pesto-Group/thicc_pdf/actions/workflows/ci.yml) [![Code Climate](https://codeclimate.com/github/The-Pesto-Group/thicc_pdf/badges/gpa.svg)](https://codeclimate.com/github/The-Pesto-Group/thicc_pdf) [![Open Source Helpers](https://www.codetriage.com/The-Pesto-Group/thicc_pdf/badges/users.svg)](https://www.codetriage.com/The-Pesto-Group/thicc_pdf)
 
 ## A PDF generation plugin for Ruby on Rails
 
@@ -292,7 +292,7 @@ pdf = ThiccPdf.new.pdf_from_string('<h1>Hello There!</h1>')
 pdf = ThiccPdf.new.pdf_from_html_file('/your/absolute/path/here')
 
 # create a pdf from a URL
-pdf = ThiccPdf.new.pdf_from_url('https://github.com/mileszs/thicc_pdf')
+pdf = ThiccPdf.new.pdf_from_url('https://github.com/The-Pesto-Group/thicc_pdf')
 
 # create a pdf from string using templates, layouts and content option for header or footer
 pdf = ThiccPdf.new.pdf_from_string(

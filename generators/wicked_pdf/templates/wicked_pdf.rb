@@ -6,7 +6,7 @@
 #
 # To learn more, check out the README:
 #
-# https://github.com/mileszs/thicc_pdf/blob/master/README.md
+# https://github.com/The-Pesto-Group/thicc_pdf/blob/master/README.md
 
 ThiccPdf.config = {
   # Path to the wkhtmltopdf executable: This usually isn't needed if using
