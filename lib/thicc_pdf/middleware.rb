@@ -17,7 +17,7 @@ class ThiccPdf
         body = response.respond_to?(:body) ? response.body : response.join
         body = body.join if body.is_a?(Array)
 
-        body = ThiccPdf.new(@options[:wkhtmltopdf]).pdf_from_string(translate_paths(body, env), @options)
+        body = ThiccPdf.new(@options[:weasyprint]).pdf_from_string(translate_paths(body, env), @options)
 
         response = [body]
 

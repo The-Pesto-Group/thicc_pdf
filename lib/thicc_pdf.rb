@@ -1,5 +1,4 @@
-# wkhtml2pdf Ruby interface
-# http://wkhtmltopdf.org/
+# https://weasyprint.org/
 
 require 'logger'
 require 'digest/md5'
@@ -24,8 +23,8 @@ class ThiccPdf
 
   include Progress
 
-  def initialize(wkhtmltopdf_binary_path = nil)
-    @binary = Binary.new(wkhtmltopdf_binary_path, DEFAULT_BINARY_VERSION)
+  def initialize(weasyprint_binary_path = nil)
+    @binary = Binary.new(weasyprint_binary_path, DEFAULT_BINARY_VERSION)
   end
 
   def binary_version

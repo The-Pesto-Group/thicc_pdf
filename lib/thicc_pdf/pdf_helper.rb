@@ -71,12 +71,12 @@ class ThiccPdf
       render_opts[:file] = options[:file] if options[:file]
       html_string = render_to_string(render_opts)
       options = prerender_header_and_footer(options)
-      w = ThiccPdf.new(options[:wkhtmltopdf])
+      w = ThiccPdf.new(options[:weasyprint])
       w.pdf_from_string(html_string, options)
     end
 
     def make_and_send_pdf(pdf_name, options = {})
-      options[:wkhtmltopdf] ||= nil
+      options[:weasyprint] ||= nil
       options[:layout] ||= false
       options[:template] ||= File.join(controller_path, action_name)
       options[:disposition] ||= 'inline'

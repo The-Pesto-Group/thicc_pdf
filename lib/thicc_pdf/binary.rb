@@ -1,6 +1,6 @@
 class ThiccPdf
   class Binary
-    EXE_NAME = 'wkhtmltopdf'.freeze
+    EXE_NAME = 'weasyprint'.freeze
 
     attr_reader :path, :default_version
 
@@ -18,7 +18,7 @@ class ThiccPdf
     end
 
     def parse_version_string(version_info)
-      match_data = /wkhtmltopdf\s*(\d*\.\d*\.\d*\w*)/.match(version_info)
+      match_data = /weasyprint\s*(\d*\.\d*\.\d*\w*)/.match(version_info)
       if match_data && (match_data.length == 2)
         Gem::Version.new(match_data[1])
       else
@@ -50,7 +50,7 @@ class ThiccPdf
     end
 
     def possible_which_path
-      detected_path = (defined?(Bundler) ? Bundler.which('wkhtmltopdf') : `which wkhtmltopdf`).chomp
+      detected_path = (defined?(Bundler) ? Bundler.which('weasyprint') : `which weasyprint`).chomp
       detected_path.present? && detected_path
     rescue StandardError
       nil
