@@ -1,5 +1,5 @@
 require 'test_helper'
-ThiccPdf.config = { :exe_path => ENV['WKHTMLTOPDF_BIN'] || '/usr/local/bin/wkhtmltopdf' }
+ThiccPdf.config = { :exe_path => ENV['WKHTMLTOPDF_BIN'] || '/usr/local/bin/weasyprint' }
 HTML_DOCUMENT = '<html><body>Hello World</body></html>'.freeze
 
 class ThiccPdfTest < ActiveSupport::TestCase
@@ -30,21 +30,21 @@ class ThiccPdfTest < ActiveSupport::TestCase
     assert pdf.length > 100
   end
 
-  test 'should raise exception when no path to wkhtmltopdf' do
+  test 'should raise exception when no path to weasyprint' do
     assert_raise RuntimeError do
       ThiccPdf.new ' '
     end
   end
 
-  test 'should raise exception when wkhtmltopdf path is wrong' do
+  test 'should raise exception when weasyprint path is wrong' do
     assert_raise RuntimeError do
-      ThiccPdf.new '/i/do/not/exist/notwkhtmltopdf'
+      ThiccPdf.new '/i/do/not/exist/notweasyprint'
     end
   end
 
-  test 'should raise exception when wkhtmltopdf is not executable' do
+  test 'should raise exception when weasyprint is not executable' do
     begin
-      tmp = Tempfile.new('wkhtmltopdf')
+      tmp = Tempfile.new('weasyprint')
       fp = tmp.path
       File.chmod 0o000, fp
       assert_raise RuntimeError do
@@ -57,7 +57,7 @@ class ThiccPdfTest < ActiveSupport::TestCase
 
   test 'should raise exception when pdf generation fails' do
     begin
-      tmp = Tempfile.new('wkhtmltopdf')
+      tmp = Tempfile.new('weasyprint')
       fp = tmp.path
       File.chmod 0o777, fp
       wp = ThiccPdf.new fp

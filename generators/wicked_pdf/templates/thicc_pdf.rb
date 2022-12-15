@@ -9,21 +9,21 @@
 # https://github.com/The-Pesto-Group/thicc_pdf/blob/master/README.md
 
 ThiccPdf.config = {
-  # Path to the wkhtmltopdf executable: This usually isn't needed if using
-  # one of the wkhtmltopdf-binary family of gems.
-  # exe_path: '/usr/local/bin/wkhtmltopdf',
+  # Path to the weasyprint executable: This usually isn't needed if using
+  # one of the weasyprint-binary family of gems.
+  # exe_path: '/usr/local/bin/weasyprint',
   #   or
-  # exe_path: Gem.bin_path('wkhtmltopdf-binary', 'wkhtmltopdf')
+  # exe_path: Gem.bin_path('weasyprint-binary', 'weasyprint')
 
-  # Needed for wkhtmltopdf 0.12.6+ to use many thicc_pdf asset helpers
+  # Needed for weasyprint 0.12.6+ to use many thicc_pdf asset helpers
   # enable_local_file_access: true,
 
   # Layout file to be used for all PDFs
   # (but can be overridden in `render :pdf` calls)
   # layout: 'pdf.html',
 
-  # Using wkhtmltopdf without an X server can be achieved by enabling the
-  # 'use_xvfb' flag. This will wrap all wkhtmltopdf commands around the
+  # Using weasyprint without an X server can be achieved by enabling the
+  # 'use_xvfb' flag. This will wrap all weasyprint commands around the
   # 'xvfb-run' command, in order to simulate an X server.
   #
   # use_xvfb: true,

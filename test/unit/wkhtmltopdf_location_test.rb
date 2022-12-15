@@ -8,7 +8,7 @@ class WkhtmltopdfLocationTest < ActiveSupport::TestCase
     ThiccPdf.config = @saved_config
   end
 
-  test 'should correctly locate wkhtmltopdf without bundler' do
+  test 'should correctly locate weasyprint without bundler' do
     bundler_module = Bundler
     Object.send(:remove_const, :Bundler)
 
@@ -19,7 +19,7 @@ class WkhtmltopdfLocationTest < ActiveSupport::TestCase
     Object.const_set(:Bundler, bundler_module)
   end
 
-  test 'should correctly locate wkhtmltopdf with bundler' do
+  test 'should correctly locate weasyprint with bundler' do
     assert_nothing_raised do
       ThiccPdf.new
     end
@@ -39,7 +39,7 @@ class WkhtmltopdfLocationTest < ActiveSupport::TestCase
       ENV['HOME'] = @old_home
     end
 
-    test 'should correctly locate wkhtmltopdf with bundler while HOME is set to a non-writable directory' do
+    test 'should correctly locate weasyprint with bundler while HOME is set to a non-writable directory' do
       assert_nothing_raised do
         ThiccPdf.new
       end

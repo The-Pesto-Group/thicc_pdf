@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.requirements << 'wkhtmltopdf'
+  spec.requirements << 'weasyprint'
 
   spec.add_dependency 'activesupport'
 
