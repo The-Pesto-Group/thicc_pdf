@@ -1,4 +1,4 @@
-class WickedPdf
+class ThiccPdf
   module Progress
     require 'pty' if RbConfig::CONFIG['target_os'] !~ /mswin|mingw/ # no support for windows
     require 'English'

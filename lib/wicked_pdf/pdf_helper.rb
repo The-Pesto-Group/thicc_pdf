@@ -1,4 +1,4 @@
-class WickedPdf
+class ThiccPdf
   module PdfHelper
     def self.prepended(base)
       # Protect from trying to augment modules that appear
@@ -13,7 +13,7 @@ class WickedPdf
     def render(*args)
       options = args.first
       if options.is_a?(Hash) && options.key?(:pdf)
-        render_with_wicked_pdf(options)
+        render_with_thicc_pdf(options)
       else
         super
       end
@@ -22,31 +22,31 @@ class WickedPdf
     def render_to_string(*args)
       options = args.first
       if options.is_a?(Hash) && options.key?(:pdf)
-        render_to_string_with_wicked_pdf(options)
+        render_to_string_with_thicc_pdf(options)
       else
         super
       end
     end
 
-    def render_with_wicked_pdf(options)
+    def render_with_thicc_pdf(options)
       raise ArgumentError, 'missing keyword: pdf' unless options.is_a?(Hash) && options.key?(:pdf)
 
       options[:basic_auth] = set_basic_auth(options)
-      make_and_send_pdf(options.delete(:pdf), (WickedPdf.config || {}).merge(options))
+      make_and_send_pdf(options.delete(:pdf), (ThiccPdf.config || {}).merge(options))
     end
 
-    def render_to_string_with_wicked_pdf(options)
+    def render_to_string_with_thicc_pdf(options)
       raise ArgumentError, 'missing keyword: pdf' unless options.is_a?(Hash) && options.key?(:pdf)
 
       options[:basic_auth] = set_basic_auth(options)
       options.delete :pdf
-      make_pdf((WickedPdf.config || {}).merge(options))
+      make_pdf((ThiccPdf.config || {}).merge(options))
     end
 
     private
 
     def set_basic_auth(options = {})
-      options[:basic_auth] ||= WickedPdf.config.fetch(:basic_auth) { false }
+      options[:basic_auth] ||= ThiccPdf.config.fetch(:basic_auth) { false }
       return unless options[:basic_auth] && request.env['HTTP_AUTHORIZATION']
 
       request.env['HTTP_AUTHORIZATION'].split(' ').last
@@ -71,7 +71,7 @@ class WickedPdf
       render_opts[:file] = options[:file] if options[:file]
       html_string = render_to_string(render_opts)
       options = prerender_header_and_footer(options)
-      w = WickedPdf.new(options[:wkhtmltopdf])
+      w = ThiccPdf.new(options[:wkhtmltopdf])
       w.pdf_from_string(html_string, options)
     end
 
@@ -107,7 +107,7 @@ class WickedPdf
         next unless options[hf] && options[hf][:html] && options[hf][:html][:template]
 
         @hf_tempfiles = [] unless defined?(@hf_tempfiles)
-        @hf_tempfiles.push(tf = WickedPdf::Tempfile.new("wicked_#{hf}_pdf.html"))
+        @hf_tempfiles.push(tf = ThiccPdf::Tempfile.new("thicc_#{hf}_pdf.html"))
         options[hf][:html][:layout] ||= options[:layout]
         render_opts = {
           :template => options[hf][:html][:template],

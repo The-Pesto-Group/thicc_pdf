@@ -1,8 +1,8 @@
 require 'net/http'
 require 'delegate'
 
-class WickedPdf
-  module WickedPdfHelper
+class ThiccPdf
+  module ThiccPdfHelper
     module Assets
       ASSET_URL_REGEX = /url\(['"]?([^'"]+?)['"]?\)/
 
@@ -20,7 +20,7 @@ class WickedPdf
         end
       end
 
-      def wicked_pdf_asset_base64(path)
+      def thicc_pdf_asset_base64(path)
         asset = find_asset(path)
         raise "Could not find asset '#{path}'" if asset.nil?
 
@@ -30,21 +30,21 @@ class WickedPdf
 
       # Using `image_tag` with URLs when generating PDFs (specifically large PDFs with lots of pages) can cause buffer/stack overflows.
       #
-      def wicked_pdf_url_base64(url)
+      def thicc_pdf_url_base64(url)
         response = Net::HTTP.get_response(URI(url))
 
         if response.is_a?(Net::HTTPSuccess)
           base64 = Base64.encode64(response.body).gsub(/\s+/, '')
           "data:#{response.content_type};base64,#{Rack::Utils.escape(base64)}"
         else
-          Rails.logger.warn("[wicked_pdf] #{response.code} #{response.message}: #{url}")
+          Rails.logger.warn("[thicc_pdf] #{response.code} #{response.message}: #{url}")
           nil
         end
       end
 
-      def wicked_pdf_stylesheet_link_tag(*sources)
+      def thicc_pdf_stylesheet_link_tag(*sources)
         stylesheet_contents = sources.collect do |source|
-          source = WickedPdfHelper.add_extension(source, 'css')
+          source = ThiccPdfHelper.add_extension(source, 'css')
           "<style type='text/css'>#{read_asset(source)}</style>"
         end.join("\n")
 
@@ -52,55 +52,55 @@ class WickedPdf
           if Regexp.last_match[1].starts_with?('data:')
             "url(#{Regexp.last_match[1]})"
           else
-            "url(#{wicked_pdf_asset_path(Regexp.last_match[1])})"
+            "url(#{thicc_pdf_asset_path(Regexp.last_match[1])})"
           end
         end.html_safe
       end
 
-      def wicked_pdf_stylesheet_pack_tag(*sources)
+      def thicc_pdf_stylesheet_pack_tag(*sources)
         return unless defined?(Webpacker)
 
         if running_in_development?
           stylesheet_pack_tag(*sources)
         else
           css_text = sources.collect do |source|
-            source = WickedPdfHelper.add_extension(source, 'css')
-            wicked_pdf_stylesheet_link_tag(webpacker_source_url(source))
+            source = ThiccPdfHelper.add_extension(source, 'css')
+            thicc_pdf_stylesheet_link_tag(webpacker_source_url(source))
           end.join("\n")
           css_text.respond_to?(:html_safe) ? css_text.html_safe : css_text
         end
       end
 
-      def wicked_pdf_javascript_pack_tag(*sources)
+      def thicc_pdf_javascript_pack_tag(*sources)
         return unless defined?(Webpacker)
 
         if running_in_development?
           javascript_pack_tag(*sources)
         else
           sources.collect do |source|
-            source = WickedPdfHelper.add_extension(source, 'js')
+            source = ThiccPdfHelper.add_extension(source, 'js')
             "<script type='text/javascript'>#{read_asset(webpacker_source_url(source))}</script>"
           end.join("\n").html_safe
         end
       end
 
-      def wicked_pdf_image_tag(img, options = {})
-        image_tag wicked_pdf_asset_path(img), options
+      def thicc_pdf_image_tag(img, options = {})
+        image_tag thicc_pdf_asset_path(img), options
       end
 
-      def wicked_pdf_javascript_src_tag(jsfile, options = {})
-        jsfile = WickedPdfHelper.add_extension(jsfile, 'js')
-        javascript_include_tag wicked_pdf_asset_path(jsfile), options
+      def thicc_pdf_javascript_src_tag(jsfile, options = {})
+        jsfile = ThiccPdfHelper.add_extension(jsfile, 'js')
+        javascript_include_tag thicc_pdf_asset_path(jsfile), options
       end
 
-      def wicked_pdf_javascript_include_tag(*sources)
+      def thicc_pdf_javascript_include_tag(*sources)
         sources.collect do |source|
-          source = WickedPdfHelper.add_extension(source, 'js')
+          source = ThiccPdfHelper.add_extension(source, 'js')
           "<script type='text/javascript'>#{read_asset(source)}</script>"
         end.join("\n").html_safe
       end
 
-      def wicked_pdf_asset_path(asset)
+      def thicc_pdf_asset_path(asset)
         if (pathname = asset_pathname(asset).to_s) =~ URI_REGEXP
           pathname
         else
@@ -108,13 +108,13 @@ class WickedPdf
         end
       end
 
-      def wicked_pdf_asset_pack_path(asset)
+      def thicc_pdf_asset_pack_path(asset)
         return unless defined?(Webpacker)
 
         if running_in_development?
           asset_pack_path(asset)
         else
-          wicked_pdf_asset_path webpacker_source_url(asset)
+          thicc_pdf_asset_path webpacker_source_url(asset)
         end
       end
 
@@ -157,7 +157,7 @@ class WickedPdf
       # will prepend a http or default_protocol to a protocol relative URL
       # or when no protcol is set.
       def prepend_protocol(source)
-        protocol = WickedPdf.config[:default_protocol] || 'http'
+        protocol = ThiccPdf.config[:default_protocol] || 'http'
         if source[0, 2] == '//'
           source = [protocol, ':', source].join
         elsif source[0] != '/' && !source[0, 8].include?('://')
@@ -189,7 +189,7 @@ class WickedPdf
       def read_from_uri(uri)
         asset = Net::HTTP.get(URI(uri))
         asset.force_encoding('UTF-8') if asset
-        asset = gzip(asset) if WickedPdf.config[:expect_gzipped_remote_assets]
+        asset = gzip(asset) if ThiccPdf.config[:expect_gzipped_remote_assets]
         asset
       end
 

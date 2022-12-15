@@ -9,15 +9,15 @@ require 'open3'
 require 'active_support/core_ext/module/attribute_accessors'
 require 'active_support/core_ext/object/blank'
 
-require 'wicked_pdf/version'
-require 'wicked_pdf/railtie'
-require 'wicked_pdf/option_parser'
-require 'wicked_pdf/tempfile'
-require 'wicked_pdf/binary'
-require 'wicked_pdf/middleware'
-require 'wicked_pdf/progress'
+require 'thicc_pdf/version'
+require 'thicc_pdf/railtie'
+require 'thicc_pdf/option_parser'
+require 'thicc_pdf/tempfile'
+require 'thicc_pdf/binary'
+require 'thicc_pdf/middleware'
+require 'thicc_pdf/progress'
 
-class WickedPdf
+class ThiccPdf
   DEFAULT_BINARY_VERSION = Gem::Version.new('0.9.9')
   @@config = {}
   cattr_accessor :config
@@ -38,8 +38,8 @@ class WickedPdf
 
   def pdf_from_string(string, options = {})
     options = options.dup
-    options.merge!(WickedPdf.config) { |_key, option, _config| option }
-    string_file = WickedPdf::Tempfile.new('wicked_pdf.html', options[:temp_path])
+    options.merge!(ThiccPdf.config) { |_key, option, _config| option }
+    string_file = ThiccPdf::Tempfile.new('thicc_pdf.html', options[:temp_path])
     string_file.write_in_chunks(string)
     pdf_from_html_file(string_file.path, options)
   ensure
@@ -48,8 +48,8 @@ class WickedPdf
 
   def pdf_from_url(url, options = {})
     # merge in global config options
-    options.merge!(WickedPdf.config) { |_key, option, _config| option }
-    generated_pdf_file = WickedPdf::Tempfile.new('wicked_pdf_generated_file.pdf', options[:temp_path])
+    options.merge!(ThiccPdf.config) { |_key, option, _config| option }
+    generated_pdf_file = ThiccPdf::Tempfile.new('thicc_pdf_generated_file.pdf', options[:temp_path])
     command = [@binary.path]
     command.unshift(@binary.xvfb_run_path) if options[:use_xvfb]
     command += parse_options(options)
@@ -95,7 +95,7 @@ class WickedPdf
   end
 
   def print_command(cmd)
-    Rails.logger.debug '[wicked_pdf]: ' + cmd
+    Rails.logger.debug '[thicc_pdf]: ' + cmd
   end
 
   def parse_options(options)

@@ -1,22 +1,22 @@
-# Wicked PDF [![Gem Version](https://badge.fury.io/rb/wicked_pdf.svg)](http://badge.fury.io/rb/wicked_pdf) [![Build Status](https://github.com/mileszs/wicked_pdf/actions/workflows/ci.yml/badge.svg)](https://github.com/mileszs/wicked_pdf/actions/workflows/ci.yml) [![Code Climate](https://codeclimate.com/github/mileszs/wicked_pdf/badges/gpa.svg)](https://codeclimate.com/github/mileszs/wicked_pdf) [![Open Source Helpers](https://www.codetriage.com/mileszs/wicked_pdf/badges/users.svg)](https://www.codetriage.com/mileszs/wicked_pdf)
+# Thicc PDF [![Gem Version](https://badge.fury.io/rb/thicc_pdf.svg)](http://badge.fury.io/rb/thicc_pdf) [![Build Status](https://github.com/mileszs/thicc_pdf/actions/workflows/ci.yml/badge.svg)](https://github.com/mileszs/thicc_pdf/actions/workflows/ci.yml) [![Code Climate](https://codeclimate.com/github/mileszs/thicc_pdf/badges/gpa.svg)](https://codeclimate.com/github/mileszs/thicc_pdf) [![Open Source Helpers](https://www.codetriage.com/mileszs/thicc_pdf/badges/users.svg)](https://www.codetriage.com/mileszs/thicc_pdf)
 
 ## A PDF generation plugin for Ruby on Rails
 
-Wicked PDF uses the shell utility [wkhtmltopdf](http://wkhtmltopdf.org) to serve a PDF file to a user from HTML.  In other words, rather than dealing with a PDF generation DSL of some sort, you simply write an HTML view as you would normally, then let Wicked PDF take care of the hard stuff.
+Thicc PDF uses the shell utility [wkhtmltopdf](http://wkhtmltopdf.org) to serve a PDF file to a user from HTML.  In other words, rather than dealing with a PDF generation DSL of some sort, you simply write an HTML view as you would normally, then let Thicc PDF take care of the hard stuff.
 
-_Wicked PDF has been verified to work on Ruby versions 2.2 through 2.6; Rails 4 through 6.1_
+_Thicc PDF has been verified to work on Ruby versions 2.2 through 2.6; Rails 4 through 6.1_
 
 ### Installation
 
 Add this to your Gemfile and run `bundle install`:
 
 ```ruby
-gem 'wicked_pdf'
+gem 'thicc_pdf'
 ```
 
 Then create the initializer with
 
-    rails generate wicked_pdf
+    rails generate thicc_pdf
 
 You may also need to add
 ```ruby
@@ -24,7 +24,7 @@ Mime::Type.register "application/pdf", :pdf
 ```
 to `config/initializers/mime_types.rb` in older versions of Rails.
 
-Because `wicked_pdf` is a wrapper for  [wkhtmltopdf](http://wkhtmltopdf.org/), you'll need to install that, too.
+Because `thicc_pdf` is a wrapper for  [wkhtmltopdf](http://wkhtmltopdf.org/), you'll need to install that, too.
 
 The simplest way to install all of the binaries on most Linux or OSX systems is through the gem [wkhtmltopdf-binary](https://github.com/zakird/wkhtmltopdf_binary_gem). Builds for other systems are available [here](https://wkhtmltopdf.org/downloads.html)
 To install that gem, add this:
@@ -42,7 +42,7 @@ You can see what flags are supported for the current version in [wkhtmltopdf's a
 If your wkhtmltopdf executable is not on your webserver's path, you can configure it in an initializer:
 
 ```ruby
-WickedPdf.config = {
+ThiccPdf.config = {
   exe_path: '/usr/local/bin/wkhtmltopdf',
   enable_local_file_access: true
 }
@@ -65,20 +65,20 @@ end
 ```
 ### Usage Conditions - Important!
 
-The wkhtmltopdf binary is run outside of your Rails application; therefore, your normal layouts will not work. If you plan to use any CSS, JavaScript, or image files, you must modify your layout so that you provide an absolute reference to these files. The best option for Rails without the asset pipeline is to use the `wicked_pdf_stylesheet_link_tag`, `wicked_pdf_image_tag`, and `wicked_pdf_javascript_include_tag` helpers or to go straight to a CDN (Content Delivery Network) for popular libraries such as jQuery.
+The wkhtmltopdf binary is run outside of your Rails application; therefore, your normal layouts will not work. If you plan to use any CSS, JavaScript, or image files, you must modify your layout so that you provide an absolute reference to these files. The best option for Rails without the asset pipeline is to use the `thicc_pdf_stylesheet_link_tag`, `thicc_pdf_image_tag`, and `thicc_pdf_javascript_include_tag` helpers or to go straight to a CDN (Content Delivery Network) for popular libraries such as jQuery.
 
-#### wicked_pdf helpers
+#### thicc_pdf helpers
 ```html
 <!doctype html>
 <html>
   <head>
     <meta charset='utf-8' />
-    <%= wicked_pdf_stylesheet_link_tag "pdf" -%>
-    <%= wicked_pdf_javascript_include_tag "number_pages" %>
+    <%= thicc_pdf_stylesheet_link_tag "pdf" -%>
+    <%= thicc_pdf_javascript_include_tag "number_pages" %>
   </head>
   <body onload='number_pages'>
     <div id="header">
-      <%= wicked_pdf_image_tag 'mysite.jpg' %>
+      <%= thicc_pdf_image_tag 'mysite.jpg' %>
     </div>
     <div id="content">
       <%= yield %>
@@ -86,20 +86,20 @@ The wkhtmltopdf binary is run outside of your Rails application; therefore, your
   </body>
 </html>
 ```
-Using wicked_pdf_helpers with asset pipeline raises `Asset names passed to helpers should not include the "/assets/" prefix.` error. To work around this, you can use `wicked_pdf_asset_base64` with the normal Rails helpers, but be aware that this will base64 encode your content and inline it in the page. This is very quick for small assets, but large ones can take a long time.
+Using thicc_pdf_helpers with asset pipeline raises `Asset names passed to helpers should not include the "/assets/" prefix.` error. To work around this, you can use `thicc_pdf_asset_base64` with the normal Rails helpers, but be aware that this will base64 encode your content and inline it in the page. This is very quick for small assets, but large ones can take a long time.
 
 ```html
 <!doctype html>
 <html>
   <head>
     <meta charset='utf-8' />
-    <%= stylesheet_link_tag wicked_pdf_asset_base64("pdf") %>
-    <%= javascript_include_tag wicked_pdf_asset_base64("number_pages") %>
+    <%= stylesheet_link_tag thicc_pdf_asset_base64("pdf") %>
+    <%= javascript_include_tag thicc_pdf_asset_base64("number_pages") %>
 
   </head>
   <body onload='number_pages'>
     <div id="header">
-      <%= image_tag wicked_pdf_asset_base64('mysite.jpg') %>
+      <%= image_tag thicc_pdf_asset_base64('mysite.jpg') %>
     </div>
     <div id="content">
       <%= yield %>
@@ -110,11 +110,11 @@ Using wicked_pdf_helpers with asset pipeline raises `Asset names passed to helpe
 
 #### Webpacker usage
 
-wicked_pdf supports webpack assets.
+thicc_pdf supports webpack assets.
 
-- Use `wicked_pdf_stylesheet_pack_tag` for stylesheets
-- Use `wicked_pdf_javascript_pack_tag` for javascripts
-- Use `wicked_pdf_asset_pack_path` to access an asset directly, for example: `image_tag wicked_pdf_asset_pack_path("media/images/foobar.png")`
+- Use `thicc_pdf_stylesheet_pack_tag` for stylesheets
+- Use `thicc_pdf_javascript_pack_tag` for javascripts
+- Use `thicc_pdf_asset_pack_path` to access an asset directly, for example: `image_tag thicc_pdf_asset_pack_path("media/images/foobar.png")`
 
 #### Asset pipeline usage
 
@@ -285,17 +285,17 @@ You can see the complete list of options under "Global Options" in wkhtmltopdf u
 If you need to just create a pdf and not display it:
 ```ruby
 # create a pdf from a string
-pdf = WickedPdf.new.pdf_from_string('<h1>Hello There!</h1>')
+pdf = ThiccPdf.new.pdf_from_string('<h1>Hello There!</h1>')
 
 # create a pdf file from a html file without converting it to string
 # Path must be absolute path
-pdf = WickedPdf.new.pdf_from_html_file('/your/absolute/path/here')
+pdf = ThiccPdf.new.pdf_from_html_file('/your/absolute/path/here')
 
 # create a pdf from a URL
-pdf = WickedPdf.new.pdf_from_url('https://github.com/mileszs/wicked_pdf')
+pdf = ThiccPdf.new.pdf_from_url('https://github.com/mileszs/thicc_pdf')
 
 # create a pdf from string using templates, layouts and content option for header or footer
-pdf = WickedPdf.new.pdf_from_string(
+pdf = ThiccPdf.new.pdf_from_string(
   render_to_string('templates/pdf', layout: 'pdfs/layout_pdf.html'),
   footer: {
     content: render_to_string(
@@ -306,14 +306,14 @@ pdf = WickedPdf.new.pdf_from_string(
 )
 
 # It is possible to use footer/header templates without a layout, in that case you need to provide a valid HTML document
-pdf = WickedPdf.new.pdf_from_string(
+pdf = ThiccPdf.new.pdf_from_string(
   render_to_string('templates/full_pdf_template'),
   header: {
     content: render_to_string('templates/full_header_template')
   }
 )
 
-# or from your controller, using views & templates and all wicked_pdf options as normal
+# or from your controller, using views & templates and all thicc_pdf options as normal
 pdf = render_to_string pdf: "some_file_name", template: "templates/pdf", encoding: "UTF-8"
 
 # then save to a file
@@ -334,7 +334,7 @@ class PdfJob
         at current_page, total_pages, message
       end
     }
-    WickedPdf.new.pdf_from_string(html, progress: blk)
+    ThiccPdf.new.pdf_from_string(html, progress: blk)
   end
 end
 ```
@@ -345,7 +345,7 @@ If you need to display utf encoded characters, add this to your pdf views or lay
 If you need to return a PDF in a controller with Rails in API mode:
 ```ruby
 pdf_html = ActionController::Base.new.render_to_string(template: 'controller_name/action_name', layout: 'pdf')
-pdf = WickedPdf.new.pdf_from_string(pdf_html)
+pdf = ThiccPdf.new.pdf_from_string(pdf_html)
 send_data pdf, filename: 'file.pdf'
 ```
 ### Page Breaks
@@ -391,21 +391,21 @@ render pdf: 'filename', header: { right: '[page] of [topage]' }
 ```
 ### Configuration
 
-You can put your default configuration, applied to all pdf's at "wicked_pdf.rb" initializer.
+You can put your default configuration, applied to all pdf's at "thicc_pdf.rb" initializer.
 
 ### Rack Middleware
 
-If you would like to have WickedPdf automatically generate PDF views for all (or nearly all) pages by appending .pdf to the URL, add the following to your Rails app:
+If you would like to have ThiccPdf automatically generate PDF views for all (or nearly all) pages by appending .pdf to the URL, add the following to your Rails app:
 ```ruby
 # in application.rb (Rails3) or environment.rb (Rails2)
-require 'wicked_pdf'
-config.middleware.use WickedPdf::Middleware
+require 'thicc_pdf'
+config.middleware.use ThiccPdf::Middleware
 ```
 If you want to turn on or off the middleware for certain URLs, use the `:only` or `:except` conditions like so:
 ```ruby
 # conditions can be plain strings or regular expressions, and you can supply only one or an array
-config.middleware.use WickedPdf::Middleware, {}, only: '/invoice'
-config.middleware.use WickedPdf::Middleware, {}, except: [ %r[^/admin], '/secret', %r[^/people/\d] ]
+config.middleware.use ThiccPdf::Middleware, {}, only: '/invoice'
+config.middleware.use ThiccPdf::Middleware, {}, except: [ %r[^/admin], '/secret', %r[^/people/\d] ]
 ```
 If you use the standard `render pdf: 'some_pdf'` in your app, you will want to exclude those actions from the middleware.
 
@@ -415,7 +415,7 @@ If you use the standard `render pdf: 'some_pdf'` in your app, you will want to e
 To include a rendered pdf file in an email you can do the following:
 
 ```ruby
-attachments['attachment.pdf'] = WickedPdf.new.pdf_from_string(
+attachments['attachment.pdf'] = ThiccPdf.new.pdf_from_string(
   render_to_string('link_to_view.pdf.erb', layout: 'pdf')
 )
 ```
@@ -426,23 +426,23 @@ This will render the pdf to a string and include it in the email. This is very s
 
 Mike Ackerman's post [How To Create PDFs in Rails](https://www.viget.com/articles/how-to-create-pdfs-in-rails)
 
-Andreas Happe's post [Generating PDFs from Ruby on Rails](http://www.snikt.net/blog/2012/04/26/wicked-pdf/)
+Andreas Happe's post [Generating PDFs from Ruby on Rails](http://www.snikt.net/blog/2012/04/26/thicc-pdf/)
 
-JESii's post [WickedPDF, wkhtmltopdf, and Heroku...a tricky combination](http://www.nubyrubyrailstales.com/2013/06/wickedpdf-wkhtmltopdf-and-herokua.html)
+JESii's post [ThiccPDF, wkhtmltopdf, and Heroku...a tricky combination](http://www.nubyrubyrailstales.com/2013/06/thiccpdf-wkhtmltopdf-and-herokua.html)
 
-Berislav Babic's post [Send PDF attachments from Rails with WickedPdf and ActionMailer](http://berislavbabic.com/send-pdf-attachments-from-rails-with-wickedpdf-and-actionmailer/)
+Berislav Babic's post [Send PDF attachments from Rails with ThiccPdf and ActionMailer](http://berislavbabic.com/send-pdf-attachments-from-rails-with-thiccpdf-and-actionmailer/)
 
-Corsego's 2021 post [Complete guide to generating PDFs with gem wicked_pdf](https://blog.corsego.com/gem-wicked-pdf)
+Corsego's 2021 post [Complete guide to generating PDFs with gem thicc_pdf](https://blog.corsego.com/gem-thicc-pdf)
 
 PDFTron's post [How to Generate PDFs With Ruby on Rails](https://www.pdftron.com/blog/rails/how-to-generate-pdf-with-ruby-on-rails/)
 
-StackOverflow [questions with the tag "wicked-pdf"](http://stackoverflow.com/questions/tagged/wicked-pdf)
+StackOverflow [questions with the tag "thicc-pdf"](http://stackoverflow.com/questions/tagged/thicc-pdf)
 
 ### Screencasts
 
 * SupeRails Screencast [EN]
 
-[![Ruby on Rails #17 generate, save, send PDFs with gem wicked_pdf](https://i3.ytimg.com/vi/tFvtwEmW-GE/hqdefault.jpg)](https://youtu.be/tFvtwEmW-GE)
+[![Ruby on Rails #17 generate, save, send PDFs with gem thicc_pdf](https://i3.ytimg.com/vi/tFvtwEmW-GE/hqdefault.jpg)](https://youtu.be/tFvtwEmW-GE)
 
 * codigofacilito Screencast [ES]
 
@@ -456,9 +456,9 @@ First of all you must configure the render parameter `show_as_html: params.key?(
 
 http://localhost:3001/CONTROLLER/X.pdf?debug
 
-However, the wicked_pdf_* helpers will use file:/// paths for assets when using :show_as_html, and your browser's cross-domain safety feature will kick in, and not render them. To get around this, you can load your assets like so in your templates:
+However, the thicc_pdf_* helpers will use file:/// paths for assets when using :show_as_html, and your browser's cross-domain safety feature will kick in, and not render them. To get around this, you can load your assets like so in your templates:
 ```html
-<%= params.key?('debug') ? image_tag('foo') : wicked_pdf_image_tag('foo') %>
+<%= params.key?('debug') ? image_tag('foo') : thicc_pdf_image_tag('foo') %>
 ```
 
 #### Gotchas
@@ -469,7 +469,7 @@ wkhtmltopdf may render at different resolutions on different platforms. For exam
 
 ### Security considerations
 
-WickedPdf renders page content on the server by saving HTML and assets to temporary files on disk, then executing `wkhtmltopdf` to convert that HTML to a PDF file.
+ThiccPdf renders page content on the server by saving HTML and assets to temporary files on disk, then executing `wkhtmltopdf` to convert that HTML to a PDF file.
 
 It is highly recommended if you allow user-generated HTML/CSS/JS to be converted to PDF, you sanitize it first, or at least disallow requesting content from internal IP addresses and hostnames.
 

@@ -42,7 +42,7 @@ class PdfHelperTest < ActionController::TestCase
   test 'should prerender header and footer :template options' do
     options = @ac.send(:prerender_header_and_footer,
                        :header => { :html => { :template => 'hf.html.erb' } })
-    assert_match %r{^file:\/\/\/.*wicked_header_pdf.*\.html}, options[:header][:html][:url]
+    assert_match %r{^file:\/\/\/.*thicc_header_pdf.*\.html}, options[:header][:html][:url]
   end
 
   test 'should not interfere with already prepended patches' do
@@ -50,7 +50,7 @@ class PdfHelperTest < ActionController::TestCase
     if Rails::VERSION::MAJOR >= 5
       # this spec tests the following:
       # if another gem prepends a render method to ActionController::Base
-      # before wicked_pdf does, does calling render trigger an infinite loop?
+      # before thicc_pdf does, does calling render trigger an infinite loop?
       # this spec fails with 6392bea1fe3a41682dfd7c20fd9c179b5a758f59 because PdfHelper
       # aliases the render method prepended by the other gem to render_without_pdf, then
       # base_evals its own definition of render, which calls render_with_pdf -> render_without_pdf.
@@ -64,14 +64,14 @@ class PdfHelperTest < ActionController::TestCase
       ActionController.send(:remove_const, :Base)
       ActionController.const_set(:Base, ActionControllerMock::Base)
 
-      # Emulate another gem being loaded before wicked
+      # Emulate another gem being loaded before thicc
       ActionController::Base.prepend(SomePatch)
-      ActionController::Base.prepend(::WickedPdf::PdfHelper)
+      ActionController::Base.prepend(::ThiccPdf::PdfHelper)
 
       begin
-        # test that wicked's render method is actually called
+        # test that thicc's render method is actually called
         ac = ActionController::Base.new
-        ac.expects(:render_with_wicked_pdf)
+        ac.expects(:render_with_thicc_pdf)
         ac.render(:cats)
 
         # test that calling render does not trigger infinite loop
@@ -90,7 +90,7 @@ class PdfHelperTest < ActionController::TestCase
     ActionController::Base.expects(:after_filter).with(:clean_temp_files).never
     ActionController::Base.expects(:after_action).with(:clean_temp_files).once
     ActionController::Base.class_eval do
-      include ::WickedPdf::PdfHelper
+      include ::ThiccPdf::PdfHelper
     end
   end
 end

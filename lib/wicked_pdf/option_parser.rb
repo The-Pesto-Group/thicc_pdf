@@ -1,10 +1,10 @@
-class WickedPdf
+class ThiccPdf
   class OptionParser
     BINARY_VERSION_WITHOUT_DASHES = Gem::Version.new('0.12.0')
 
     attr_reader :binary_version
 
-    def initialize(binary_version = WickedPdf::DEFAULT_BINARY_VERSION)
+    def initialize(binary_version = ThiccPdf::DEFAULT_BINARY_VERSION)
       @binary_version = binary_version
     end
 
@@ -61,7 +61,7 @@ class WickedPdf
           r += make_options(opt_hf, [:line], hf.to_s, :boolean)
           if options[hf] && options[hf][:content]
             @hf_tempfiles = [] unless defined?(@hf_tempfiles)
-            @hf_tempfiles.push(tf = WickedPdf::Tempfile.new("wicked_#{hf}_pdf.html"))
+            @hf_tempfiles.push(tf = ThiccPdf::Tempfile.new("thicc_#{hf}_pdf.html"))
             tf.write options[hf][:content]
             tf.flush
             options[hf][:html] = {}
@@ -84,7 +84,7 @@ class WickedPdf
         [valid_option('cover'), arg]
       else # HTML content
         @hf_tempfiles ||= []
-        @hf_tempfiles << tf = WickedPdf::Tempfile.new('wicked_cover_pdf.html')
+        @hf_tempfiles << tf = ThiccPdf::Tempfile.new('thicc_cover_pdf.html')
         tf.write arg
         tf.flush
         [valid_option('cover'), tf.path]

@@ -1,2 +1,2 @@
-require 'wicked_pdf'
-require 'wicked_pdf_tempfile'
+require 'thicc_pdf'
+require 'thicc_pdf_tempfile'

@@ -1,7 +1,7 @@
-# Rails generator invoked with 'rails generate wicked_pdf'
-class WickedPdfGenerator < Rails::Generators::Base
-  source_root(File.expand_path(File.dirname(__FILE__) + '/../../generators/wicked_pdf/templates'))
+# Rails generator invoked with 'rails generate thicc_pdf'
+class ThiccPdfGenerator < Rails::Generators::Base
+  source_root(File.expand_path(File.dirname(__FILE__) + '/../../generators/thicc_pdf/templates'))
   def copy_initializer
-    copy_file 'wicked_pdf.rb', 'config/initializers/wicked_pdf.rb'
+    copy_file 'thicc_pdf.rb', 'config/initializers/thicc_pdf.rb'
   end
 end

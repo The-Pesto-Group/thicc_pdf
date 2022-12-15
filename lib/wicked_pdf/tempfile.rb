@@ -1,6 +1,6 @@
 require 'tempfile'
 
-class WickedPdf
+class ThiccPdf
   class Tempfile < ::Tempfile
     def initialize(filename, temp_dir = nil)
       temp_dir ||= Dir.tmpdir

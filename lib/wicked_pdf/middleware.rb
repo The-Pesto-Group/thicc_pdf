@@ -1,8 +1,8 @@
-class WickedPdf
+class ThiccPdf
   class Middleware
     def initialize(app, options = {}, conditions = {})
       @app = app
-      @options = (WickedPdf.config || {}).merge(options)
+      @options = (ThiccPdf.config || {}).merge(options)
       @conditions = conditions
     end
 
@@ -17,7 +17,7 @@ class WickedPdf
         body = response.respond_to?(:body) ? response.body : response.join
         body = body.join if body.is_a?(Array)
 
-        body = WickedPdf.new(@options[:wkhtmltopdf]).pdf_from_string(translate_paths(body, env), @options)
+        body = ThiccPdf.new(@options[:wkhtmltopdf]).pdf_from_string(translate_paths(body, env), @options)
 
         response = [body]
 
@@ -41,7 +41,7 @@ class WickedPdf
     # Change relative paths to absolute
     def translate_paths(body, env)
       # Host with protocol
-      root = WickedPdf.config[:root_url] || "#{env['rack.url_scheme']}://#{env['HTTP_HOST']}/"
+      root = ThiccPdf.config[:root_url] || "#{env['rack.url_scheme']}://#{env['HTTP_HOST']}/"
 
       body.gsub(/(href|src)=(['"])\/([^\"']*|[^"']*)['"]/, '\1=\2' + root + '\3\2')
     end
@@ -82,7 +82,7 @@ class WickedPdf
       @render_pdf = true
       %w[PATH_INFO REQUEST_URI].each { |e| env[e] = env[e].sub(%r{\.pdf\b}, '') }
       env['HTTP_ACCEPT'] = concat(env['HTTP_ACCEPT'], Rack::Mime.mime_type('.html'))
-      env['Rack-Middleware-WickedPdf'] = 'true'
+      env['Rack-Middleware-ThiccPdf'] = 'true'
     end
 
     def concat(accepts, type)

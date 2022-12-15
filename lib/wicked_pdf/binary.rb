@@ -1,10 +1,10 @@
-class WickedPdf
+class ThiccPdf
   class Binary
     EXE_NAME = 'wkhtmltopdf'.freeze
 
     attr_reader :path, :default_version
 
-    def initialize(binary_path, default_version = WickedPdf::DEFAULT_BINARY_VERSION)
+    def initialize(binary_path, default_version = ThiccPdf::DEFAULT_BINARY_VERSION)
       @path = binary_path || find_binary_path
       @default_version = default_version
 
@@ -43,7 +43,7 @@ class WickedPdf
     end
 
     def find_binary_path
-      exe_path ||= WickedPdf.config[:exe_path] unless WickedPdf.config.empty?
+      exe_path ||= ThiccPdf.config[:exe_path] unless ThiccPdf.config.empty?
       exe_path ||= possible_which_path
       exe_path ||= possible_binary_locations.map { |l| File.expand_path("#{l}/#{EXE_NAME}") }.find { |location| File.exist?(location) }
       exe_path || ''

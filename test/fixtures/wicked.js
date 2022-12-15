@@ -1,1 +1,1 @@
-// Wicked js
+// Thicc js

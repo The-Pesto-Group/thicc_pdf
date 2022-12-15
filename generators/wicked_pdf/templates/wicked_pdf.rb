@@ -1,4 +1,4 @@
-# WickedPDF Global Configuration
+# ThiccPDF Global Configuration
 #
 # Use this to set up shared configuration options for your entire application.
 # Any of the configuration options shown here can also be applied to single
@@ -6,16 +6,16 @@
 #
 # To learn more, check out the README:
 #
-# https://github.com/mileszs/wicked_pdf/blob/master/README.md
+# https://github.com/mileszs/thicc_pdf/blob/master/README.md
 
-WickedPdf.config = {
+ThiccPdf.config = {
   # Path to the wkhtmltopdf executable: This usually isn't needed if using
   # one of the wkhtmltopdf-binary family of gems.
   # exe_path: '/usr/local/bin/wkhtmltopdf',
   #   or
   # exe_path: Gem.bin_path('wkhtmltopdf-binary', 'wkhtmltopdf')
 
-  # Needed for wkhtmltopdf 0.12.6+ to use many wicked_pdf asset helpers
+  # Needed for wkhtmltopdf 0.12.6+ to use many thicc_pdf asset helpers
   # enable_local_file_access: true,
 
   # Layout file to be used for all PDFs

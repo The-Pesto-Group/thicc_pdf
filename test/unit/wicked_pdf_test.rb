@@ -1,10 +1,10 @@
 require 'test_helper'
-WickedPdf.config = { :exe_path => ENV['WKHTMLTOPDF_BIN'] || '/usr/local/bin/wkhtmltopdf' }
+ThiccPdf.config = { :exe_path => ENV['WKHTMLTOPDF_BIN'] || '/usr/local/bin/wkhtmltopdf' }
 HTML_DOCUMENT = '<html><body>Hello World</body></html>'.freeze
 
-class WickedPdfTest < ActiveSupport::TestCase
+class ThiccPdfTest < ActiveSupport::TestCase
   def setup
-    @wp = WickedPdf.new
+    @wp = ThiccPdf.new
   end
 
   test 'should generate PDF from html document' do
@@ -32,13 +32,13 @@ class WickedPdfTest < ActiveSupport::TestCase
 
   test 'should raise exception when no path to wkhtmltopdf' do
     assert_raise RuntimeError do
-      WickedPdf.new ' '
+      ThiccPdf.new ' '
     end
   end
 
   test 'should raise exception when wkhtmltopdf path is wrong' do
     assert_raise RuntimeError do
-      WickedPdf.new '/i/do/not/exist/notwkhtmltopdf'
+      ThiccPdf.new '/i/do/not/exist/notwkhtmltopdf'
     end
   end
 
@@ -48,7 +48,7 @@ class WickedPdfTest < ActiveSupport::TestCase
       fp = tmp.path
       File.chmod 0o000, fp
       assert_raise RuntimeError do
-        WickedPdf.new fp
+        ThiccPdf.new fp
       end
     ensure
       tmp.delete
@@ -60,7 +60,7 @@ class WickedPdfTest < ActiveSupport::TestCase
       tmp = Tempfile.new('wkhtmltopdf')
       fp = tmp.path
       File.chmod 0o777, fp
-      wp = WickedPdf.new fp
+      wp = ThiccPdf.new fp
       assert_raise RuntimeError do
         wp.pdf_from_string HTML_DOCUMENT
       end
@@ -70,7 +70,7 @@ class WickedPdfTest < ActiveSupport::TestCase
   end
 
   test 'should output progress when creating pdfs on compatible hosts' do
-    wp = WickedPdf.new
+    wp = ThiccPdf.new
     output = []
     options = { :progress => proc { |o| output << o } }
     wp.pdf_from_string HTML_DOCUMENT, options

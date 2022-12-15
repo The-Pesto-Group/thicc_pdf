@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class WickedPdfOptionParserTest < ActiveSupport::TestCase
+class ThiccPdfOptionParserTest < ActiveSupport::TestCase
   test 'should parse header and footer options' do
     %i[header footer].each do |hf|
       %i[center font_name left right].each do |o|
@@ -65,7 +65,7 @@ class WickedPdfOptionParserTest < ActiveSupport::TestCase
     pathname = Rails.root.join('app', 'views', 'pdf', 'file.html')
     assert_equal "#{cover_option} http://example.org", parse_options(:cover => 'http://example.org').strip, 'URL'
     assert_equal "#{cover_option} #{pathname}", parse_options(:cover => pathname).strip, 'Pathname'
-    assert_match(/#{cover_option} .+wicked_cover_pdf.+\.html/, parse_options(:cover => '<html><body>HELLO</body></html>').strip, 'HTML')
+    assert_match(/#{cover_option} .+thicc_cover_pdf.+\.html/, parse_options(:cover => '<html><body>HELLO</body></html>').strip, 'HTML')
   end
 
   test 'should parse other options' do
@@ -102,7 +102,7 @@ class WickedPdfOptionParserTest < ActiveSupport::TestCase
   end
 
   test 'should not use double dash options for version without dashes' do
-    op = option_parser(WickedPdf::OptionParser::BINARY_VERSION_WITHOUT_DASHES)
+    op = option_parser(ThiccPdf::OptionParser::BINARY_VERSION_WITHOUT_DASHES)
 
     %w[toc cover].each do |name|
       assert_equal op.valid_option(name), name
@@ -123,11 +123,11 @@ class WickedPdfOptionParserTest < ActiveSupport::TestCase
     assert_equal parse_options(options), "--disable-javascript --header-center 3 #{cover_option} http://example.org"
   end
 
-  def parse_options(options, version = WickedPdf::DEFAULT_BINARY_VERSION)
+  def parse_options(options, version = ThiccPdf::DEFAULT_BINARY_VERSION)
     option_parser(version).parse(options).join(' ')
   end
 
-  def option_parser(version = WickedPdf::DEFAULT_BINARY_VERSION)
-    WickedPdf::OptionParser.new(version)
+  def option_parser(version = ThiccPdf::DEFAULT_BINARY_VERSION)
+    ThiccPdf::OptionParser.new(version)
   end
 end

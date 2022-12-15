@@ -1,3 +1,3 @@
 //= link_tree ../images
-//= link wicked.js
-//= link wicked.css
+//= link thicc.js
+//= link thicc.css

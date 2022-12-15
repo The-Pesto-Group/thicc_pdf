@@ -1,13 +1,13 @@
-require 'wicked_pdf/pdf_helper'
-require 'wicked_pdf/wicked_pdf_helper'
-require 'wicked_pdf/wicked_pdf_helper/assets'
+require 'thicc_pdf/pdf_helper'
+require 'thicc_pdf/thicc_pdf_helper'
+require 'thicc_pdf/thicc_pdf_helper/assets'
 
-class WickedPdf
+class ThiccPdf
   if defined?(Rails.env)
-    class WickedRailtie < Rails::Railtie
-      initializer 'wicked_pdf.register', :after => 'remotipart.controller_helper' do |_app|
+    class ThiccRailtie < Rails::Railtie
+      initializer 'thicc_pdf.register', :after => 'remotipart.controller_helper' do |_app|
         ActiveSupport.on_load(:action_controller) { ActionController::Base.send :prepend, PdfHelper }
-        ActiveSupport.on_load(:action_view) { include WickedPdfHelper::Assets }
+        ActiveSupport.on_load(:action_view) { include ThiccPdfHelper::Assets }
       end
     end
 
