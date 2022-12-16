@@ -60,11 +60,11 @@ class ThiccPdf
 
     def make_pdf(options = {})
       render_opts = {
-        :template => options[:template],
-        :layout => options[:layout],
-        :formats => options[:formats],
-        :handlers => options[:handlers],
-        :assigns => options[:assigns]
+        template: options[:template],
+        layout: options[:layout],
+        formats: options[:formats],
+        handlers: options[:handlers],
+        assigns: options[:assigns]
       }
       render_opts[:inline] = options[:inline] if options[:inline]
       render_opts[:locals] = options[:locals] if options[:locals]
@@ -82,12 +82,12 @@ class ThiccPdf
       options[:disposition] ||= 'inline'
       if options[:show_as_html]
         render_opts = {
-          :template => options[:template],
-          :layout => options[:layout],
-          :formats => options[:formats],
-          :handlers => options[:handlers],
-          :assigns => options[:assigns],
-          :content_type => 'text/html'
+          template: options[:template],
+          layout: options[:layout],
+          formats: options[:formats],
+          handlers: options[:handlers],
+          assigns: options[:assigns],
+          content_type: 'text/html'
         }
         render_opts[:inline] = options[:inline] if options[:inline]
         render_opts[:locals] = options[:locals] if options[:locals]
@@ -96,7 +96,7 @@ class ThiccPdf
       else
         pdf_content = make_pdf(options)
         File.open(options[:save_to_file], 'wb') { |file| file << pdf_content } if options[:save_to_file]
-        send_data(pdf_content, :filename => pdf_name + '.pdf', :type => 'application/pdf', :disposition => options[:disposition]) unless options[:save_only]
+        send_data(pdf_content, filename: pdf_name + '.pdf', type: 'application/pdf', disposition: options[:disposition]) unless options[:save_only]
       end
     end
 
@@ -110,11 +110,11 @@ class ThiccPdf
         @hf_tempfiles.push(tf = ThiccPdf::Tempfile.new("thicc_#{hf}_pdf.html"))
         options[hf][:html][:layout] ||= options[:layout]
         render_opts = {
-          :template => options[hf][:html][:template],
-          :layout => options[hf][:html][:layout],
-          :formats => options[hf][:html][:formats],
-          :handlers => options[hf][:html][:handlers],
-          :assigns => options[hf][:html][:assigns]
+          template: options[hf][:html][:template],
+          layout: options[hf][:html][:layout],
+          formats: options[hf][:html][:formats],
+          handlers: options[hf][:html][:handlers],
+          assigns: options[hf][:html][:assigns]
         }
         render_opts[:locals] = options[hf][:html][:locals] if options[hf][:html][:locals]
         render_opts[:file] = options[hf][:html][:file] if options[:file]

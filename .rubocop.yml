@@ -48,7 +48,7 @@ Style/RedundantFetchBlock:
 
 Style/CaseLikeIf:
   Enabled: false
- 
+
 Style/SoleNestedConditional:
   Enabled: false
 

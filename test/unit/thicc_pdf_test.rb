@@ -1,5 +1,5 @@
 require 'test_helper'
-ThiccPdf.config = { :exe_path => ENV['WKHTMLTOPDF_BIN'] || '/usr/local/bin/weasyprint' }
+ThiccPdf.config = { exe_path: ENV['WKHTMLTOPDF_BIN'] || '/usr/local/bin/weasyprint' }
 HTML_DOCUMENT = '<html><body>Hello World</body></html>'.freeze
 
 class ThiccPdfTest < ActiveSupport::TestCase
@@ -72,7 +72,7 @@ class ThiccPdfTest < ActiveSupport::TestCase
   test 'should output progress when creating pdfs on compatible hosts' do
     wp = ThiccPdf.new
     output = []
-    options = { :progress => proc { |o| output << o } }
+    options = { progress: proc { |o| output << o } }
     wp.pdf_from_string HTML_DOCUMENT, options
     if RbConfig::CONFIG['target_os'] =~ /mswin|mingw/
       assert_empty output

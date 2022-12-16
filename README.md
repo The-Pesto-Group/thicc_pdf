@@ -405,7 +405,6 @@ config.middleware.use ThiccPdf::Middleware, {}, except: [ %r[^/admin], '/secret'
 ```
 If you use the standard `render pdf: 'some_pdf'` in your app, you will want to exclude those actions from the middleware.
 
-
 ### Include in an email as an attachment
 
 To include a rendered pdf file in an email you can do the following:

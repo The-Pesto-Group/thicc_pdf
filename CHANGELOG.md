@@ -69,7 +69,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - [Add support for --keep-relative-links flag](https://github.com/The-Pesto-Group/thicc_pdf/pull/930)
 - [Encapsulate binary path and version handling](https://github.com/The-Pesto-Group/thicc_pdf/pull/816) && [#815](https://github.com/The-Pesto-Group/thicc_pdf/pull/815)
 
-
 ## [2.1.0] - 2020-06-14
 ### Fixes
 - [Document no_stop_slow_scripts in README](https://github.com/The-Pesto-Group/thicc_pdf/pull/905)

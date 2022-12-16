@@ -15,8 +15,8 @@ class ThiccPdf
         parse_global(options),
         parse_outline(options.delete(:outline)),
         parse_header_footer(:header => options.delete(:header),
-                            :footer => options.delete(:footer),
-                            :layout => options[:layout]),
+                            footer: options.delete(:footer),
+                            layout: options[:layout]),
         parse_cover(options.delete(:cover)),
         parse_toc(options.delete(:toc)),
         parse_basic_auth(options)

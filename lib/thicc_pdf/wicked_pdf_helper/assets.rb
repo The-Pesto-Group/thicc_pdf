@@ -146,11 +146,11 @@ class ThiccPdf
 
       def find_asset(path)
         if Rails.application.assets.respond_to?(:find_asset)
-          Rails.application.assets.find_asset(path, :base_path => Rails.application.root.to_s)
+          Rails.application.assets.find_asset(path, base_path: Rails.application.root.to_s)
         elsif defined?(Propshaft::Assembly) && Rails.application.assets.is_a?(Propshaft::Assembly)
           PropshaftAsset.new(Rails.application.assets.load_path.find(path))
         else
-          Sprockets::Railtie.build_environment(Rails.application).find_asset(path, :base_path => Rails.application.root.to_s)
+          Sprockets::Railtie.build_environment(Rails.application).find_asset(path, base_path: Rails.application.root.to_s)
         end
       end
 
@@ -207,7 +207,7 @@ class ThiccPdf
         # In Webpacker 3.2.0 asset_pack_url is introduced
         if webpacker_version >= '3.2.0'
           if (host = Rails.application.config.asset_host)
-            asset_pack_path(source, :host => host)
+            asset_pack_path(source, host: host)
           else
             asset_pack_url(source)
           end

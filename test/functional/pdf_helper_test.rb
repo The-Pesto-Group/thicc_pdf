@@ -41,7 +41,7 @@ class PdfHelperTest < ActionController::TestCase
 
   test 'should prerender header and footer :template options' do
     options = @ac.send(:prerender_header_and_footer,
-                       :header => { :html => { :template => 'hf.html.erb' } })
+                       header: { html: { template: 'hf.html.erb' } })
     assert_match %r{^file:\/\/\/.*thicc_header_pdf.*\.html}, options[:header][:html][:url]
   end
 

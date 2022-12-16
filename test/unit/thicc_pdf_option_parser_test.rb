@@ -14,9 +14,9 @@ class ThiccPdfOptionParserTest < ActiveSupport::TestCase
       end
 
       assert_equal "--#{hf}-line",
-                   parse_options(hf => { :line => true }).strip
+                   parse_options(hf => { line: true }).strip
       assert_equal "--#{hf}-html http://www.abc.com",
-                   parse_options(hf => { :html => { :url => 'http://www.abc.com' } }).strip
+                   parse_options(hf => { html: { url: 'http://www.abc.com' } }).strip
     end
   end
 
@@ -44,8 +44,8 @@ class ThiccPdfOptionParserTest < ActiveSupport::TestCase
   end
 
   test 'should parse outline options' do
-    assert_equal '--outline', parse_options(:outline => { :outline => true }).strip
-    assert_equal '--outline-depth 5', parse_options(:outline => { :outline_depth => 5 }).strip
+    assert_equal '--outline', parse_options(:outline => { outline: true }).strip
+    assert_equal '--outline-depth 5', parse_options(:outline => { outline_depth: 5 }).strip
   end
 
   test 'should parse no_images option' do
@@ -118,7 +118,7 @@ class ThiccPdfOptionParserTest < ActiveSupport::TestCase
   end
 
   test '-- options should not be given after object' do
-    options = { :header => { :center => 3 }, :cover => 'http://example.org', :disable_javascript => true }
+    options = { header: { center: 3 }, cover: 'http://example.org', disable_javascript: true }
     cover_option = option_parser.valid_option('cover')
     assert_equal parse_options(options), "--disable-javascript --header-center 3 #{cover_option} http://example.org"
   end

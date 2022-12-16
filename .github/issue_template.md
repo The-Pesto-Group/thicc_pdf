@@ -12,4 +12,3 @@ whtmltopdf [provider gem](https://rubygems.org/search?utf8=%E2%9C%93&query=wkhtm
 
 platform/distribution and version (e.g. Windows 10 / Ubuntu 16.04 / Heroku cedar):
 
-
