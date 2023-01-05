@@ -1,6 +1,9 @@
 # ThiccPDF
 
 ThiccPDF is a fork of [Wicked PDF](https://github.com/mileszs/wicked_pdf).
+It uses WeasyPrint instead of wkhtmltopdf.
+
+WickedPDF supports CSS Flexbox. It does not support Javascript.
 
 ### Installation
 
@@ -50,7 +53,6 @@ If you plan to use any CSS or image files, you must modify your layout so that y
 The best option for Rails without the asset pipeline is to use the following helpers:
 - `thicc_pdf_stylesheet_link_tag`
 - `thicc_pdf_image_tag`
-- `thicc_pdf_javascript_include_tag`
 
 WeasyPrint does not support Javascript.
 
@@ -61,7 +63,6 @@ WeasyPrint does not support Javascript.
   <head>
     <meta charset='utf-8' />
     <%= thicc_pdf_stylesheet_link_tag "pdf" -%>
-    <%= thicc_pdf_javascript_include_tag "number_pages" %>
   </head>
   <body onload='number_pages'>
     <div id="header">
@@ -81,7 +82,6 @@ Using thicc_pdf_helpers with asset pipeline raises `Asset names passed to helper
   <head>
     <meta charset='utf-8' />
     <%= stylesheet_link_tag thicc_pdf_asset_base64("pdf") %>
-    <%= javascript_include_tag thicc_pdf_asset_base64("number_pages") %>
 
   </head>
   <body onload='number_pages'>
@@ -100,7 +100,6 @@ Using thicc_pdf_helpers with asset pipeline raises `Asset names passed to helper
 thicc_pdf supports webpack assets.
 
 - Use `thicc_pdf_stylesheet_pack_tag` for stylesheets
-- Use `thicc_pdf_javascript_pack_tag` for javascripts
 - Use `thicc_pdf_asset_pack_path` to access an asset directly, for example: `image_tag thicc_pdf_asset_pack_path("media/images/foobar.png")`
 
 #### Asset pipeline usage
@@ -108,17 +107,6 @@ thicc_pdf supports webpack assets.
 It is best to precompile assets used in PDF views. This will help avoid issues when it comes to deploying, as Rails serves asset files differently between development and production (`config.assets.compile = false`), which can make it look like your PDFs work in development, but fail to load assets in production.
 
     config.assets.precompile += ['blueprint/screen.css', 'pdf.css', 'jquery.ui.datepicker.js', 'pdf.js', ...etc...]
-
-#### CDN reference
-
-In this case, you can use that standard Rails helpers and point to the current CDN for whichever framework you are using. For jQuery, it would look somethng like this, given the current versions at the time of this writing.
-```html
-<!doctype html>
-<html>
-  <head>
-    <%= javascript_include_tag "http://code.jquery.com/jquery-1.10.0.min.js" %>
-    <%= javascript_include_tag "http://code.jquery.com/ui/1.10.3/jquery-ui.min.js" %>
-```
 
 ### Advanced Usage
 
