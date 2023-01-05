@@ -5,6 +5,8 @@ It uses WeasyPrint instead of wkhtmltopdf.
 
 WickedPDF supports CSS Flexbox. It does not support Javascript.
 
+TODO: Gut all unsupported options and Javascript content. Fix tests.
+
 ### Installation
 
 #### ThiccPDF
